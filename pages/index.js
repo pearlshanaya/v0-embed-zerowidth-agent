@@ -290,18 +290,19 @@ export default function AgentComponent() {
   };
 
   return (
-    <div
+   <div
       style={{
         padding: "5px",
         width: "100vw",
         maxWidth: "600px",
         margin: "0 auto",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: "'Inter', sans-serif",
         borderRadius: "5px",
-        border: "1px solid #ccc",
+        border: "1px solid #8B5E3B",
+        backgroundColor: "#FAE3D9",
       }}
     >
-      {/* Descriptive header for the chat application */}
+      {/* Chat Header */}
       <div
         className="chat-header"
         style={{
@@ -312,7 +313,7 @@ export default function AgentComponent() {
         <div
           className="chat-title"
           style={{
-            backgroundColor: "#000",
+            backgroundColor: "#8B5E3B",
             color: "#fff",
             padding: "10px",
             borderRadius: "5px",
@@ -329,13 +330,14 @@ export default function AgentComponent() {
             borderRadius: "5px",
             fontSize: "12px",
             fontWeight: "normal",
+            color: "#4E3D30",
           }}
         >
           {chatConfig.header.description}
         </div>
       </div>
 
-      {/* Chat conversation container displaying messages in bubbles */}
+      {/* Chat Messages */}
       <div
         className="chat-container"
         style={{
@@ -343,43 +345,42 @@ export default function AgentComponent() {
           flexDirection: "column",
           gap: "5px",
           marginBottom: "0px",
-          height: chatConfig.maxChatHeight, // Set a fixed height for the chat container
-          overflowY: "auto", // Enable vertical scrolling
-          border: "2px solid #000", // Optional: border around the chat area
-          padding: "0px",
+          height: chatConfig.maxChatHeight,
+          overflowY: "auto",
+          border: "2px solid #8B5E3B",
+          padding: "10px",
           borderRadius: "5px 5px 0 0",
-          backgroundColor: "#eee",
+          backgroundColor: "#FFF5E1",
           width: "100%",
         }}
       >
         {conversation.map((msg, index) => (
           <div
             key={index}
-            style={msg.role === "user" ? bubbleStyles.user : bubbleStyles.agent}
+            style={
+              msg.role === "user"
+                ? { backgroundColor: "#D97B66", color: "#fff", padding: "8px 12px", borderRadius: "10px", alignSelf: "flex-end" }
+                : { backgroundColor: "#E4C1B9", color: "#4E3D30", padding: "8px 12px", borderRadius: "10px", alignSelf: "flex-start" }
+            }
           >
-            {msg.role === "agent" ? (
-              // Render the agent's response as Markdown.
-              <ReactMarkdown>{msg.content}</ReactMarkdown>
-            ) : (
-              // Display user messages as plain text.
-              msg.content
-            )}
+            {msg.role === "agent" ? <ReactMarkdown>{msg.content}</ReactMarkdown> : msg.content}
           </div>
         ))}
-        {/* Dummy element to ensure the latest message is scrolled into view */}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggested Prompts Section */}
+      {/* Suggested Prompts */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
-          border: "1px solid #ccc",
-          marginBottom: "0px",
+          border: "1px solid #8B5E3B",
+          backgroundColor: "#E4C1B9",
+          padding: "5px",
+          borderRadius: "5px",
         }}
       >
-        <div style={{ margin: "2px", fontSize: "10px", fontStyle: "italic" }}>
+        <div style={{ margin: "2px", fontSize: "10px", fontStyle: "italic", color: "#4E3D30" }}>
           {chatConfig.suggestedPromptsTitle}
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "2px" }}>
@@ -391,14 +392,15 @@ export default function AgentComponent() {
               onMouseOut={handlePromptMouseOut}
               disabled={isLoading}
               style={{
-                padding: "2px 4px",
+                padding: "4px 8px",
                 borderRadius: "5px",
-                border: "1px solid #ccc",
+                border: "1px solid #8B5E3B",
                 margin: "2px",
-                backgroundColor: hoveredIndex === index ? "#ddd" : "#f4f4f4",
-                color: hoveredIndex === index ? "#000" : "#888",
+                backgroundColor: hoveredIndex === index ? "#D97B66" : "#FAE3D9",
+                color: hoveredIndex === index ? "#FFF5E1" : "#4E3D30",
                 fontSize: "12px",
                 cursor: "pointer",
+                transition: "background 0.3s ease",
               }}
             >
               {prompt}
@@ -407,7 +409,7 @@ export default function AgentComponent() {
         </div>
       </div>
 
-      {/* Chat input form for the user to send messages */}
+      {/* Input Field */}
       <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0px" }}>
         <div
           style={{
@@ -415,12 +417,12 @@ export default function AgentComponent() {
             alignItems: "center",
             gap: 0,
             width: "100%",
-            borderBottom: "1px solid #ccc",
-            borderLeft: "1px solid #ccc",
-            borderRight: "1px solid #ccc",
+            borderBottom: "1px solid #8B5E3B",
+            borderLeft: "1px solid #8B5E3B",
+            borderRight: "1px solid #8B5E3B",
             borderRadius: "0 0 5px 5px",
             overflow: "hidden",
-            backgroundColor: "#fff",
+            backgroundColor: "#E4C1B9",
           }}
         >
           <input
@@ -434,7 +436,9 @@ export default function AgentComponent() {
               padding: "10px",
               border: "none",
               outline: "none",
-              backgroundColor: "#fff",
+              backgroundColor: "#E4C1B9",
+              color: "#4E3D30",
+              fontSize: "14px",
             }}
           />
           <button
@@ -450,103 +454,54 @@ export default function AgentComponent() {
               justifyContent: "center",
               borderRadius: "9999px",
               transition: "opacity 0.2s ease",
-              backgroundColor: isSubmitHovered ? "#007BFF" : "#000",
-              color: isSubmitHovered ? "#fff" : "#fff",
+              backgroundColor: isSubmitHovered ? "#D97B66" : "#8B5E3B",
+              color: "#FFF5E1",
               height: "36px",
               width: "36px",
-              border: "5px solid #fff",
+              border: "5px solid #E4C1B9",
               cursor: isLoading ? "default" : "pointer",
             }}
           >
-            {!isLoading ? (
-              <svg
-                width="36px"
-                height="36px"
-                viewBox="8 8 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M15.1918 8.90615C15.6381 8.45983 16.3618 8.45983 16.8081 8.90615L21.9509 14.049C22.3972 14.4953 22.3972 15.2189 21.9509 15.6652C21.5046 16.1116 20.781 16.1116 20.3347 15.6652L17.1428 12.4734V22.2857C17.1428 22.9169 16.6311 23.4286 15.9999 23.4286C15.3688 23.4286 14.8571 22.9169 14.8571 22.2857V12.4734L11.6652 15.6652C11.2189 16.1116 10.4953 16.1116 10.049 15.6652C9.60265 15.2189 9.60265 14.4953 10.049 14.049L15.1918 8.90615Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            ) : (
-              <svg
-                width="36px"
-                height="36px"
-                viewBox="0 0 50 50"
-                style={{ animation: "spin 1s linear infinite" }}
-              >
-                <circle
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  stroke="#888"
-                  strokeWidth="12"
-                  fill="none"
-                />
-                <circle
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  stroke="#fff"
-                  strokeWidth="12"
-                  strokeDasharray="31.4 31.4"
-                  fill="none"
-                />
-              </svg>
-            )}
+            {!isLoading ? "➤" : "⏳"}
           </button>
         </div>
       </form>
 
-      {/* Tiny display of user ID and session ID */}
+      {/* User & Session Info */}
       <div
         style={{
           marginTop: "2px",
           fontSize: "9px",
-          color: "#999",
+          color: "#4E3D30",
           textAlign: "center",
         }}
       >
         User ID: {userId} | Session ID: {sessionId}
       </div>
 
-      {/* Display error message if one occurs */}
+      {/* Error Handling */}
       {error && (
         <div style={{ color: "red", marginTop: "20px" }}>
           <strong>Error:</strong> {error}
         </div>
       )}
 
-      {/* Define keyframes for the spin animation */}
+      {/* Custom Scrollbar & Animations */}
       <style jsx>{`
         .chat-container::-webkit-scrollbar {
-          width: 8px; /* Make scrollbar thinner */
+          width: 8px;
         }
         .chat-container::-webkit-scrollbar-track {
           background: transparent;
-          border-radius: 5px; /* Ensures the track has rounded corners */
-        }
-        .chat-container::-webkit-scrollbar-thumb {
-          background-color: #ccc;
           border-radius: 5px;
         }
-        /* Firefox scrollbar styling */
+        .chat-container::-webkit-scrollbar-thumb {
+          background-color: #8B5E3B;
+          border-radius: 5px;
+        }
         .chat-container {
           scrollbar-width: thin;
-          scrollbar-color: #ccc transparent;
-        }
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          scrollbar-color: #8B5E3B transparent;
         }
       `}</style>
     </div>

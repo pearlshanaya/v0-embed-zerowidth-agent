@@ -13,11 +13,11 @@
 
 const chatConfig = {
   flowURL:
-    "https://api.zerowidth.ai/v1/process/UvxlzCFXzR3aAgvsD8Nf/QDcqFRhjjrjZUTHsvxWX",
+    "https://api.zerowidth.ai/v1/process/DQVy6D3GTLcXuXc1aXsl/DmbxYLegZr6SW4khueJd",
   header: {
     title: "Chat with ELIZA",
     description:
-      "Greetings, I am a draft clone of ELIZA running the DOCTOR script. HOW DO YOU DO. PLEASE STATE YOUR PROBLEM.",
+      "Greetings, I am a draft clone of pearl running the DOCTOR script. HOW DO YOU DO. PLEASE STATE YOUR PROBLEM.",
   },
   suggestedPromptsTitle: "Here are some suggested prompts.",
   suggestedPrompts: [

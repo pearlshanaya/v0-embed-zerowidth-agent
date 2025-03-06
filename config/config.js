@@ -15,7 +15,7 @@ const chatConfig = {
   flowURL:
     "https://api.zerowidth.ai/v1/process/DQVy6D3GTLcXuXc1aXsl/DmbxYLegZr6SW4khueJd",
   header: {
-    title: "Chat with ELIZA",
+    title: "Chat with pearl",
     description:
       "Greetings, I am a draft clone of pearl running the DOCTOR script. HOW DO YOU DO. PLEASE STATE YOUR PROBLEM.",
   },
